@@ -21,12 +21,19 @@ npm install
 npm start
 
 # Deploy the Landing Zone:  
-npm run deploy
+npm run deploy console
 ```
 
 ### For pipeline use  
-Use Ubuntu agents to build and deploy the Landing Zone package.
+Best to use Ubuntu agents to build and deploy the Landing Zone package.
 
+The deploy command needs the VM Admin password as an argument.  
+```
+# Pipeline Requirements
+npm run deploy pipeline <password>
+```
+
+### Pipeline Examples  
 In GitHub Actions:  
 Use `.github/workflows/deploy-landingzone.yml` to deploy the Landing Zone package.  
 
