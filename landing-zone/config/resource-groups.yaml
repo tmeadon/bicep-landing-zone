@@ -1,0 +1,35 @@
+$schema: ./schemas/resource-groups-config-schema.json
+
+resourceGroups:
+  - name: rg-core-uks
+    location: uksouth
+    tags:
+      owner: tom
+      project: landing-zone
+  
+  - name: rg-hub-net
+    location: uksouth
+    tags:
+      owner: tom
+      project: landing-zone    
+
+  - name: rg-core-net
+    location: uksouth
+    tags:
+      owner: tom
+      project: landing-zone
+
+  - name: rg-prod-net
+    location: uksouth
+    tags:
+      owner: tom
+      project: landing-zone
+
+  - name: rg-preprod-net
+    location: uksouth
+    tags:
+      owner: tom
+      project: landing-zone
+
+  - name: rg-dev-net
+    location: uksouth

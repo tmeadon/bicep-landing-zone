@@ -1,0 +1,35 @@
+$schema: ./schemas/environments-config-schema.json
+
+environments:
+
+  hub_uks:
+    naming:
+      env: prod
+      locationShort: uks
+      app: hub
+
+  core_uks:
+    naming:
+      env: prod
+      locationShort: uks
+      app: core
+
+  spoke1_prod_uks:
+    naming:
+      env: prod
+      locationShort: uks
+      app: spoke1
+
+  spoke1_preprod_uks:
+    naming:
+      env: preprod
+      locationShort: uks
+      app: spoke1
+
+  spoke1_dev_uks:
+    naming:
+      env: dev
+      locationShort: uks
+      app: spoke1
+
+

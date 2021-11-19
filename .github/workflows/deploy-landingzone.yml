@@ -1,0 +1,37 @@
+name: Bicep Landing Zone Deployment
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    name: 'LZ Deployment'
+    runs-on: ubuntu-latest
+   
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Nodejs 17
+      uses: actions/setup-node@v2
+      with:
+        node-version: 17.x
+        cache: 'npm'
+      
+    - name: Install Prereqs
+      run: npm install
+
+    - name: Update Naming Convention
+      run: npm run update-naming
+
+    - name: Convert YAML to JSON
+      run: npm run config-to-json
+
+      # Log into Azure
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Deploy Network
+    - name: deploy network
+      uses: azure/arm-deploy@v1
+      with:
+        scope: subscription
+        region: uksouth
+        template: ./landing-zone/networks.bicep

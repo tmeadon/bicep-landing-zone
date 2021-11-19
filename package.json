@@ -1,0 +1,33 @@
+{
+  "name": "bicep-lz",
+  "version": "1.0.0",
+  "description": "Bicep Landing Zone Package",
+  "scripts": {
+    "test": "jest",
+    "update-naming": "node scripts/update-naming.js",
+    "config-to-json": "node scripts/config-yaml-to-json.js",
+    "start": "node scripts/build.js",
+    "deploy": "node scripts/deploy.mjs"
+  },
+  "author": "Ingi",
+  "license": "ISC",
+  "dependencies": {
+    "@types/jest": "^27.0.2",
+    "child_process": "^1.0.2",
+    "colors": "^1.4.0",
+    "commander": "^8.3.0",
+    "inquirer": "^8.2.0",
+    "jest": "^27.3.1",
+    "jest-json-schema": "^5.0.0",
+    "jest-junit": "^13.0.0",
+    "js-yaml": "^4.1.0",
+    "ora": "^6.0.1",
+    "parse-json": "^5.2.0",
+    "prompt": "^1.2.0",
+    "yargs": "^17.2.1"
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "suiteNameTemplate": "{filename}"
+  }
+}

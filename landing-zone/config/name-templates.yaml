@@ -1,0 +1,8 @@
+vnet: "vnet-{env}-{locationShort}-{app}"
+bastion: "bst-{env}-{locationShort}-{app}"
+bastionPip: "bst-{env}-{locationShort}-{app}-pip"
+firewall: "fw-{env}-{locationShort}-{app}"
+firewallPip: "fw-{env}-{locationShort}-{app}-pip"
+keyVault: "kv{env}{locationShort}{app}"
+logAnalyticsWorkspace: "la-{env}-{locationShort}-{app}"
+vm: "{env}-{locationShort}-{app}"

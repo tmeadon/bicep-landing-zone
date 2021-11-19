@@ -1,0 +1,48 @@
+$schema: ./schemas/core-config-schema.json
+
+resources:
+
+  logs:
+    type: logAnalyticsWorkspace
+    environment: core_uks
+    location: uksouth
+    resourceGroup: rg-core-uks
+    properties:
+      retentionDays: 90
+      sku: PerGB2018
+
+  vault:
+    type: keyVault
+    environment: core_uks
+    location: uksouth
+    resourceGroup: rg-core-uks
+    properties:
+      enabledForDeployment: true
+      enabledForTemplateDeployment: true
+      enabledForDiskEncryption: true
+      enableRbacAuthorization: true
+      sku: standard
+      appendUniqueString: true
+
+  vm1:
+    type: vm
+    environment: core_uks
+    location: uksouth
+    resourceGroup: rg-core-uks
+    nameSuffix: '-0'
+    properties:
+      vnetRef: core_uks
+      subnetName: vms
+      size: Standard_B2s
+      imageReference:
+        publisher: MicrosoftWindowsServer
+        offer: WindowsServer
+        sku: 2019-Datacenter
+        version: latest    
+      osDiskSizeGb: 128
+      dataDisks: 
+      - sku: Standard_LRS
+        sizeGb: 64
+      adminUsername: lzuser
+      keyVaultRef: vault
+      

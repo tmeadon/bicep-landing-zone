@@ -1,0 +1,48 @@
+name: Build LandingZone Package
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Nodejs 17
+      uses: actions/setup-node@v2
+      with:
+        node-version: 17.x
+        cache: 'npm'
+      
+    - name: Install Prereqs
+      run: npm install
+
+    - name: Update Naming Convention
+      run: npm run update-naming
+
+    - name: Run Tests
+      run: npm test
+
+    - name: Upload Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    
+      with:
+        name: npm test report
+        path: junit.xml
+        reporter: jest-junit
+
+    - name: Convert YAML to JSON
+      run: npm run config-to-json
+
+    - name: Package Artifact Upload 
+      uses: actions/upload-artifact@v2
+      with:
+        name: LandingZone
+        path: ./landing-zone

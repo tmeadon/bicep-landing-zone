@@ -1,0 +1,84 @@
+$schema: ./schemas/networking-config-schema.json
+
+networks:
+
+  hub_uks:
+    environment: hub_uks
+    resourceGroup: rg-hub-net
+    location: uksouth
+    addressPrefixes:
+    - 10.0.0.0/16
+    isHub: true
+    subnets:
+    - name: GatewaySubnet
+      addressPrefix: 10.0.0.0/24
+    - name: AzureFirewallSubnet
+      addressPrefix: 10.0.1.0/24
+
+  core_uks:
+    environment: core_uks
+    resourceGroup: rg-core-net
+    location: uksouth
+    addressPrefixes:
+    - 10.1.0.0/16
+    isHub: true
+    subnets:
+    - name: AzureBastionSubnet
+      addressPrefix: 10.1.0.0/24
+    - name: vms
+      addressPrefix: 10.1.1.0/24
+    deployBastion: true
+    peerings:
+      - hub_uks
+
+  spoke1_prod_uks:
+    environment: spoke1_prod_uks
+    resourceGroup: rg-prod-net
+    location: uksouth
+    addressPrefixes:
+    - 10.2.0.0/16
+    isHub: false
+    subnets:
+    - name: aks
+      addressPrefix: 10.2.0.0/24
+    - name: vms
+      addressPrefix: 10.2.1.0/24
+    peerings:
+    - hub_uks
+
+  spoke1_preprod_uks:
+    environment: spoke1_preprod_uks
+    resourceGroup: rg-preprod-net
+    location: uksouth
+    addressPrefixes:
+    - 10.3.0.0/16
+    isHub: false
+    subnets:
+    - name: aks
+      addressPrefix: 10.3.0.0/24
+    - name: vms
+      addressPrefix: 10.3.1.0/24
+    peerings:
+    - hub_uks
+
+  spoke1_dev_uks:
+    environment: spoke1_dev_uks
+    resourceGroup: rg-dev-net
+    location: uksouth
+    addressPrefixes:
+    - 10.4.0.0/16
+    isHub: false
+    subnets:
+    - name: aks
+      addressPrefix: 10.4.0.0/24
+      serviceEndpoints: []
+    - name: vms
+      addressPrefix: 10.4.1.0/24
+      serviceEndpoints:
+      - locations:
+        - uksouth
+        - ukwest
+        service: Microsoft.Storage
+    peerings:
+    - hub_uks
+
