@@ -1,7 +1,7 @@
 # Bicep Landing Zone
 
 ## Introduction
-Attemt to create Landing Zone script in Bicep
+Create Landing Zone script in Bicep
 
 ## Usage
 The package can be used both localy or as part of pipeline.
