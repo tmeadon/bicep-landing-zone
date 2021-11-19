@@ -1,7 +1,7 @@
 {
   "name": "bicep-lz",
   "version": "1.0.0",
-  "description": "Bicep Landing Zone Package",
+  "description": "Bicep Landing Zone Modules",
   "scripts": {
     "test": "jest",
     "update-naming": "node scripts/update-naming.js",
