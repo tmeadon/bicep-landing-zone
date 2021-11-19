@@ -1,0 +1,10 @@
+# Example, any change in this repo 
+# will require approval from @vriesmarcel
+* @ingio
+* @tmeadon
+
+# Any change inside the `/Documents` directory
+# will require approval from anyone in the organization fluentbytes and the team docsteam
+# The team will need explicit write permissions to the repo for this to work!
+# /Documents @fluentbytes/docsteam
+# Create your own rules below this line without the # sign
