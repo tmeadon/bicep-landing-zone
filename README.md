@@ -1,4 +1,6 @@
-# Create Landing Zone
+# Bicep Landing Zone
+
+## Introduction
 Attemt to create Landing Zone script in Bicep
 
 ## Usage
