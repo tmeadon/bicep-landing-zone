@@ -4,7 +4,6 @@ param enabledForDeployment bool = true
 param enabledForTemplateDeployment bool = true
 param enabledForDiskEncryption bool = true
 param enableRbacAuthorization bool = true
-param appendUniqueString bool = true
 
 @allowed([
   'premium'
@@ -12,11 +11,8 @@ param appendUniqueString bool = true
 ])
 param sku string = 'standard'
 
-var suffix = take(uniqueString(resourceGroup().id, name), 5)
-var vaultName = appendUniqueString ? '${name}-${suffix}' : name
-
 resource vault 'Microsoft.KeyVault/vaults@2019-09-01' = {
-  name: vaultName
+  name: name
   location: location
   properties: {
     sku: {
