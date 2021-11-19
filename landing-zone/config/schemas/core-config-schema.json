@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Core resources",
+  "description": "Bicep landing zone core resources schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "resources": {
+      "type": "object",
+      "description": "The core resources to deploy",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/definitions/coreResource"
+        }
+      }
+    }
+  },
+  "required": [
+    "resources"
+  ],
+  "definitions": {
+    "coreResource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of resource to define",
+          "enum": [
+            "logAnalyticsWorkspace",
+            "vm",
+            "keyVault"
+          ]
+        },
+        "environment": {
+          "type": "string",
+          "description": "A reference to an environment defined in the environments config file"
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "The name of the resource group to deploy the workspace in"
+        },
+        "location": {
+          "type": "string",
+          "description": "The name of the Azure region to deploy the workspace in"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "nameSuffix": {
+          "type": "string",
+          "description": "Optional suffix to apply to the name of the resource"
+        }
+      },
+      "required": [
+        "type",
+        "environment",
+        "resourceGroup",
+        "location"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "logAnalyticsWorkspace" } },
+            "required": [ "type" ]
+          },
+          "then": {
+            "properties": { "properties": { "$ref": "#/definitions/logWorkspaceProperties" }},
+            "required": [ "properties" ]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "vm" } },
+            "required": [ "type" ]
+          },
+          "then": {
+            "properties": { "properties": { "$ref": "#/definitions/vmProperties" }},
+            "required": [ "properties" ]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "keyVault" } },
+            "required": [ "type" ]
+          },
+          "then": {
+            "properties": { "properties": { "$ref": "#/definitions/keyVaultProperties" }},
+            "required": [ "properties" ]
+          }
+        }
+      ]
+    },
+    "logWorkspaceProperties": {
+      "type": "object",
+      "description": "Properties of the log analytics workspace",
+      "additionalProperties": false,
+      "properties": {
+        "sku": {
+          "type": "string",
+          "description": "The SKU for the workspace",
+          "enum": [
+            "PerGB2018",
+            "Free",
+            "Standard",
+            "Premium"
+          ]
+        },
+        "retentionDays": {
+          "type": "integer",
+          "description": "The number of days to retain log data for",
+          "default": 90
+        }
+      }
+    },
+    "vmProperties": {
+      "type": "object",
+      "description": "Properties of the Virtual Machine",
+      "additionalProperties": false,
+      "properties": {
+        "vnetRef": {
+          "type": "string",
+          "description": "The name of the VNet to connect the VM to"
+        },
+        "subnetName": {
+          "type": "string",
+          "description": "The name of the subnet to connect the VM to"
+        },
+        "vnetResourceGroup": {
+          "type": "string",
+          "description": "The name of the resource group containing the VNet to connect to (defaults to the VM's resource group)"
+        },
+        "size": {
+          "type": "string",
+          "description": "The size of the VM (e.g. Standard_DS5_v2)"
+        },
+        "imageReference": {
+          "$ref": "#/definitions/vmImageReference"
+        },
+        "osDiskSizeGb": {
+          "type": "integer",
+          "description": "The size of the OS disk in GB",
+          "default": 128
+        },
+        "dataDisks": {
+          "type": "array",
+          "description": "A list of data disks to create and attach to the VM",
+          "items": {
+            "$ref": "#/definitions/dataDisk"
+          },
+          "default": []
+        },
+        "keyVaultRef": {
+          "type": "string",
+          "description": "Reference to the Key Vault resource defined in core.yaml to store the admin credentials in"
+        },
+        "adminUsername": {
+          "type": "string",
+          "description": "Username for the default admin account (password will be generated during the deployment)"
+        }
+      },
+      "required": [
+        "vnetRef",
+        "subnetName",
+        "size",
+        "imageReference",
+        "osDiskSizeGb",
+        "dataDisks",
+        "adminUsername"
+      ]
+    },
+    "vmImageReference": {
+      "type": "object",
+      "description": "A description of the image to use when building the VM",
+      "oneOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The resource ID of an image to build from"
+            }
+          },
+          "required": [ "id" ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "sharedGalleryImageId": {
+              "type": "string",
+              "description": "The shared gallery image unique id"
+            }
+          },
+          "required": [ "sharedGalleryImageId" ],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "publisher": {
+              "type": "string",
+              "description": "The image publisher (e.g. MicrosoftWindowsServer)",
+              "default": "MicrosoftWindowsServer"
+            },
+            "offer": {
+              "type": "string",
+              "description": "Specifies the offer of the platform image or marketplace image used to create the virtual machine (e.g. WindowsServer)",
+              "default": "WindowsServer"
+            },
+            "sku": {
+              "type": "string",
+              "description": "The image SKU (e.g. 2019-Datacenter)",
+              "default": "2019-Datacenter"
+            },
+            "version": {
+              "type": "string",
+              "description": "Specifies the version of the platform image or marketplace image used to create the virtual machine (e.g. latest)",
+              "default": "latest"
+            }
+          },
+          "required": [
+            "publisher",
+            "offer",
+            "sku",
+            "version"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "dataDisk": {
+      "type": "object",
+      "description": "A description of a data disk",
+      "additionalProperties": false,
+      "properties": {
+        "sizeGb": {
+          "type": "integer",
+          "description": "The size of the disk in GB"
+        },
+        "sku": {
+          "type": "string",
+          "description": "The SKU for the disk",
+          "enum": [
+            "Premium_LRS",
+            "Premium_ZRS",
+            "StandardSSD_LRS",
+            "StandardSSD_ZRS",
+            "Standard_LRS",
+            "UltraSSD_LRS"
+          ]
+        }
+      }
+    },
+    "keyVaultProperties": {
+      "type": "object",
+      "description": "Properties for the key vault",
+      "additionalProperties": false,
+      "properties": {
+        "enabledForDeployment": {
+          "type": "boolean",
+          "description": "Whether VMs can retrieve certificates stored as secrets from the vault",
+          "default": true
+        },
+        "enabledForTemplateDeployment": {
+          "type": "boolean",
+          "description": "Whether ARM is permitted to retrieve secrets from the vault",
+          "default": true
+        },
+        "enabledForDiskEncryption": {
+          "type": "boolean",
+          "description": "Whether Azure Disk Encryption is allowed to retrieve secrets and unwrap keys from the vault",
+          "default": true
+        },
+        "enableRbacAuthorization": {
+          "type": "boolean",
+          "description": "Whether Azure RBAC should be used or not to control access to the Key Vault (access policies are used if false)",
+          "default": true
+        },
+        "sku": {
+          "type": "string",
+          "description": "SKU name for the vault",
+          "default": "standard",
+          "enum": [
+            "standard",
+            "premium"
+          ]
+        },
+        "appendUniqueString": {
+          "type": "boolean",
+          "description": "If true then a unique string derived from the resource group id is appended to the Key Vault's name",
+          "default": true
+        }
+      }
+    }
+  }
+}

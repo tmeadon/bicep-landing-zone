@@ -1,0 +1,11 @@
+{
+    "yaml.schemas": {
+        "./landing-zone/config/schemas/networking-config-schema.json": "networking.yaml",
+        "./landing-zone/config/schemas/environments-config-schema.json": "environments.yaml",
+        "./landing-zone/config/schemas/core-config-schema.json": "core.yaml",
+        "./landing-zone/config/schemas/resource-groups-config-schema.json": "resource-groups.yaml"
+    },
+    "[yaml]": {
+        "editor.tabSize": 2
+    }
+}

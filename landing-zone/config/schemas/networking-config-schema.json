@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Networking config",
+  "description": "Bicep landing zone networking config schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "networks": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "$ref": "#/definitions/network"
+        }
+      }
+    }
+  },
+  "required": [
+    "networks"
+  ],
+  "definitions": {
+    "network": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "type": "string",
+          "description": "A reference to an environment defined in an environments config file"
+        },
+        "resourceGroup": {
+          "type": "string",
+          "description": "The name of the resource group to deploy the VNet in"
+        },
+        "location": {
+          "type": "string",
+          "description": "The name of the Azure region to deploy the VNet in"
+        },
+        "addressPrefixes": {
+          "type": "array",
+          "description": "A list of CIDRs to attach to the VNet",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isHub": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether the network should be treated as a hub network or not (used for example when configuring VNet peerings)"
+        },
+        "subnets": {
+          "type": "array",
+          "description": "A list of subnets to add to the VNet",
+          "items": {
+            "$ref": "#/definitions/subnet"
+          }
+        },
+        "peerings": {
+          "type": "array",
+          "description": "A list of VNets to connect to which should be referenced by their key in the 'networks' object",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "deployBastion": {
+          "type": "boolean",
+          "description": "Controls whether or not an Azure Bastion instance should be deployed.  Requires the presence of a subnet called 'AzureBastionSubnet'",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "environment",
+        "resourceGroup",
+        "location",
+        "addressPrefixes",
+        "isHub",
+        "subnets"
+      ]
+    },
+    "subnet": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the subnet"
+        },
+        "addressPrefix": {
+          "type": "string",
+          "description": "The CIDR to assign to the subnet"
+        },
+        "serviceEndpoints": {
+          "type": "array",
+          "description": "The service endpoints to add to the subnet",
+          "items": {
+            "$ref": "#/definitions/serviceEndpoint"
+          },
+          "default": []
+        }
+      },
+      "required": [
+        "name",
+        "addressPrefix"
+      ],
+      "additionalProperties": false
+    },
+    "serviceEndpoint": {
+      "type": "object",
+      "properties": {
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of Azure regions the service endpoint should apply to"
+        },
+        "service": {
+          "type": "string",
+          "description": "The name of the Azure service for the service endpoint (e.g. Microsoft.Storage)"
+        }
+      },
+      "required": [
+        "locations",
+        "service"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

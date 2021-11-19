@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "name": "Environments",
+  "description": "A definition of the various environments deployed in the landing zone.  Used for generating resource names and defining tags.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "environments": {
+      "type": "object",
+      "description": "The environments used in the deployment",
+      "patternProperties": {
+        "^.*$": {
+          "type": "object",
+          "properties": {
+            "naming": {
+              "$ref": "#/definitions/naming"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "naming"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "environments"
+  ],
+  "definitions": {
+    "naming": {
+      "type": "object",
+      "description": "Defines which values to use when generating resources names using the naming bicep module",
+      "properties": {
+        "env": {
+          "type": "string"
+        },
+        "locationShort": {
+          "type": "string"
+        },
+        "app": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "env",
+        "locationShort",
+        "app"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
