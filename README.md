@@ -17,7 +17,7 @@ Run below in Terminal of choice.
 
 npm install
 
-# Convert the YAML config to JSAON:  
+# Convert the YAML config to JSON:  
 npm start
 
 # Deploy the Landing Zone:  
