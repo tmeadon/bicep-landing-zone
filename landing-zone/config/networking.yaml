@@ -29,7 +29,7 @@ networks:
       addressPrefix: 10.1.0.0/24
     - name: vms
       addressPrefix: 10.1.1.0/24
-    deployBastion: false
+    deployBastion: true
     peerings:
       - hub_uks
 
