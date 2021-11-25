@@ -4,7 +4,8 @@ networks:
 
   hub_uks:
     environment: hub_uks
-    resourceGroup: rg-hub-net
+    resourceGroup: tom-rg-hub-net
+    subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     location: uksouth
     addressPrefixes:
     - 10.0.0.0/16
@@ -17,7 +18,8 @@ networks:
 
   core_uks:
     environment: core_uks
-    resourceGroup: rg-core-net
+    resourceGroup: tom-rg-core-net
+    subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     location: uksouth
     addressPrefixes:
     - 10.1.0.0/16
@@ -27,13 +29,14 @@ networks:
       addressPrefix: 10.1.0.0/24
     - name: vms
       addressPrefix: 10.1.1.0/24
-    deployBastion: true
+    deployBastion: false
     peerings:
       - hub_uks
 
   spoke1_prod_uks:
     environment: spoke1_prod_uks
-    resourceGroup: rg-prod-net
+    resourceGroup: tom-rg-prod-net
+    subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
     - 10.2.0.0/16
@@ -48,7 +51,8 @@ networks:
 
   spoke1_preprod_uks:
     environment: spoke1_preprod_uks
-    resourceGroup: rg-preprod-net
+    resourceGroup: tom-rg-preprod-net
+    subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
     - 10.3.0.0/16
@@ -63,7 +67,8 @@ networks:
 
   spoke1_dev_uks:
     environment: spoke1_dev_uks
-    resourceGroup: rg-dev-net
+    resourceGroup: tom-rg-dev-net
+    subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
     - 10.4.0.0/16

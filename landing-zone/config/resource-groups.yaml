@@ -1,41 +1,41 @@
 $schema: ./schemas/resource-groups-config-schema.json
 
 resourceGroups:
-  - name: rg-core-uks
+  - name: tom-rg-core-uks
     location: uksouth
     subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     tags:
       owner: tom
       project: landing-zone
   
-  - name: rg-hub-net
+  - name: tom-rg-hub-net
     location: uksouth
     subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     tags:
       owner: tom
       project: landing-zone    
 
-  - name: rg-core-net
+  - name: tom-rg-core-net
     location: uksouth
     subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     tags:
       owner: tom
       project: landing-zone
 
-  - name: rg-prod-net
+  - name: tom-rg-prod-net
     location: uksouth
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     tags:
       owner: tom
       project: landing-zone
 
-  - name: rg-preprod-net
+  - name: tom-rg-preprod-net
     location: uksouth
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     tags:
       owner: tom
       project: landing-zone
 
-  - name: rg-dev-net
+  - name: tom-rg-dev-net
     location: uksouth
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce

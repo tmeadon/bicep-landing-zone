@@ -31,7 +31,8 @@
         },
         "required": [
           "name",
-          "location"
+          "location",
+          "subscriptionId"
         ],
         "additionalProperties": false
       },
