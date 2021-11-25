@@ -11,7 +11,7 @@ var networks = json(loadTextContent('config/networking.json')).networks
 
 // deploy resources with dependants first
 module dependees 'modules/core-resource.bicep' = [for (item, index) in items(resources): if (item.value.type == 'keyVault') {
-  scope: resourceGroup(item.value.resourceGroup)
+  scope: resourceGroup(item.value.subscriptionId, item.value.resourceGroup)
   name: 'dependees-${index}-${item.key}'
   params: {
     resources: resources
@@ -24,7 +24,7 @@ module dependees 'modules/core-resource.bicep' = [for (item, index) in items(res
 
 // deploy the core resources which depend on those deployed above
 module dependants 'modules/core-resource.bicep' = [for (item, index) in items(resources): if (item.value.type != 'keyVault') {
-  scope: resourceGroup(item.value.resourceGroup)
+  scope: resourceGroup(item.value.subscriptionId, item.value.resourceGroup)
   name: 'dependants-${index}-${item.key}'
   params: {
     resources: resources

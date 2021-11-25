@@ -7,6 +7,7 @@ resources:
     environment: core_uks
     location: uksouth
     resourceGroup: rg-core-uks
+    subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     properties:
       retentionDays: 90
       sku: PerGB2018
@@ -16,6 +17,7 @@ resources:
     environment: core_uks
     location: uksouth
     resourceGroup: rg-core-uks
+    subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     properties:
       enabledForDeployment: true
       enabledForTemplateDeployment: true
@@ -29,6 +31,7 @@ resources:
     environment: core_uks
     location: uksouth
     resourceGroup: rg-core-uks
+    subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     nameSuffix: '-0'
     properties:
       vnetRef: core_uks
