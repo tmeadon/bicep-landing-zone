@@ -1,11 +1,12 @@
 name: Deploy Landing Zone
 on: [workflow_dispatch]
 
-permissions:
-      id-token: write
+# permissions:
+#       id-token: write
 
 jobs: 
   deploy:
+    name: 'LZ Deployment'
     runs-on: ubuntu-latest
     environment: ingisub1
    
