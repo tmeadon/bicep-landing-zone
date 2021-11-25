@@ -9,7 +9,7 @@ The package can be used both localy or as part of pipeline.
 ### For local use
 Install NodeJS 16.x or higher.  
 
-Clone or fork the repo.  
+Clone the repo.  
 
 Run below in Terminal of choice.  
 ```bash
@@ -25,6 +25,8 @@ npm run deploy
 ```
 
 ### For pipeline use  
+Clone the repo.
+
 In GitHub Actions:  
 Use `.github/workflows/deploy-landingzone.yml` to deploy the Landing Zone package.  
 
