@@ -1,10 +1,13 @@
 name: Bicep Landing Zone Deployment
 on: [workflow_dispatch]
 
-jobs:
-  deploy:
-    name: 'LZ Deployment'
+permissions:
+      id-token: write
+
+jobs: 
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment: ingisub1
    
     steps:
     - uses: actions/checkout@v2
@@ -26,8 +29,14 @@ jobs:
       # Log into Azure
     - uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENTID }}
+          tenant-id: ${{ secrets.AZURE_TENANTID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTIONID }}
 
       # Deploy Using npm package
     - name: Deploy Landing Zone
-      run: npm run deploy pipeline ${{ secrets.AZURE_VM_CREDS }}
+      run: |
+          az account show
+          az deployment sub create --location uksouth --template-file landing-zone\resource-groups.bicep
+          az deployment sub create --location uksouth --template-file landing-zone\networks.bicep
+          az deployment sub create --location uksouth --template-file landing-zone\core.bicep -p vmAdminPassword=${{ secrets.AZURE_VM_CREDS }}
