@@ -4,7 +4,7 @@ networks:
 
   hub_uks:
     environment: hub_uks
-    resourceGroup: tom-rg-hub-net
+    resourceGroup: rg-hub-net
     subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     location: uksouth
     addressPrefixes:
@@ -18,7 +18,7 @@ networks:
 
   core_uks:
     environment: core_uks
-    resourceGroup: tom-rg-core-net
+    resourceGroup: rg-core-net
     subscriptionId: e19465a6-ad97-460b-ad93-c8dcf29bc26e
     location: uksouth
     addressPrefixes:
@@ -35,7 +35,7 @@ networks:
 
   spoke1_prod_uks:
     environment: spoke1_prod_uks
-    resourceGroup: tom-rg-prod-net
+    resourceGroup: rg-prod-net
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
@@ -51,7 +51,7 @@ networks:
 
   spoke1_preprod_uks:
     environment: spoke1_preprod_uks
-    resourceGroup: tom-rg-preprod-net
+    resourceGroup: rg-preprod-net
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
@@ -67,7 +67,7 @@ networks:
 
   spoke1_dev_uks:
     environment: spoke1_dev_uks
-    resourceGroup: tom-rg-dev-net
+    resourceGroup: rg-dev-net
     subscriptionId: bf69f0e9-5eed-42f8-b9db-fbd125c860ce
     location: uksouth
     addressPrefixes:
