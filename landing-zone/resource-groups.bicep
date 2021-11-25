@@ -4,8 +4,12 @@ targetScope = 'subscription'
 var groups = json(loadTextContent('./config/resource-groups.json')).resourceGroups
 
 // create the resource groups
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = [for item in groups: {
+module rgs 'modules/resource-group.bicep' = [for item in groups: {
+  scope: subscription(contains(item, 'subscriptionId') ? item.subscriptionId : subscription().subscriptionId)
   name: item.name
-  location: item.location
-  tags: contains(item, 'tags') ? item.tags : {}
+  params: {
+    name: item.name
+    location: item.location
+    tags: contains(item, 'tags') ? item.tags : {}
+  }
 }]
