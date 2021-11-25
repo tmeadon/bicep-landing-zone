@@ -37,6 +37,6 @@ jobs:
     - name: Deploy Landing Zone
       run: |
           az account show
-          az deployment sub create --location uksouth --template-file landing-zone\resource-groups.bicep
-          az deployment sub create --location uksouth --template-file landing-zone\networks.bicep
-          az deployment sub create --location uksouth --template-file landing-zone\core.bicep -p vmAdminPassword=${{ secrets.AZURE_VM_CREDS }}
+          az deployment sub create --location uksouth --template-file landing-zone\\resource-groups.bicep
+          az deployment sub create --location uksouth --template-file landing-zone\\networks.bicep
+          az deployment sub create --location uksouth --template-file landing-zone\\core.bicep -p vmAdminPassword=${{ secrets.AZURE_VM_CREDS }}
