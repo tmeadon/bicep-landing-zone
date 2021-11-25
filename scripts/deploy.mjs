@@ -2,8 +2,6 @@ import ora from "ora";
 import color from 'colors';
 import { spawn } from 'child_process';
 import inquirer from "./inquirer.js";
-import { Command } from 'commander';
-const program = new Command();
 
 let vmAdminPassword = '';
 
@@ -107,33 +105,5 @@ function azureCore() {
     });
 }
 
+azureChk();
 
-async function pipeline() {
-    console.log('Deploying using pipeline'.green)
-    try {
-        var passArgs = process.argv.slice(2);
-        vmAdminPassword = passArgs[1];
-        //console.log('myArgs:', vmAdminPassword);
-        azureChk();
-    } catch (err) {
-        if (err) {
-            console.log(err);
-        }
-    }
-}
-
-program
-    .command('console')
-    .description('Create Azure Resources in Console')
-    .action(function () {
-        azureChk();
-    });
-
-program
-    .command('pipeline <args>')
-    .description('Create Azure Resources in pipeline')
-    .action(function () {
-        pipeline()
-    });
-
-program.parseAsync(process.argv);
