@@ -6,12 +6,12 @@ param targetVnetConfig object
 // get references to the vnets
 resource sourceVnet 'Microsoft.Network/virtualNetworks@2020-11-01' existing = {
   name: sourceVnetName
-  scope: resourceGroup(sourceVnetConfig.resourceGroup)
+  scope: resourceGroup(sourceVnetConfig.subscriptionId, sourceVnetConfig.resourceGroup)
 }
 
 resource targetVnet 'Microsoft.Network/virtualNetworks@2020-11-01' existing = {
   name: targetVnetName
-  scope: resourceGroup(targetVnetConfig.resourceGroup)
+  scope: resourceGroup(targetVnetConfig.subscriptionId, targetVnetConfig.resourceGroup)
 }
 
 // determine if the source or destination have gateways deployed
@@ -21,7 +21,7 @@ var targetHasGateways = contains(targetVnetConfig, 'gateways') && (length(target
 // connect the source to the target
 module sourceToTarget 'individual_peering.bicep' = {
   name: '${sourceVnetName}-to-${targetVnetName}'
-  scope: resourceGroup(sourceVnetConfig.resourceGroup)
+  scope: resourceGroup(sourceVnetConfig.subscriptionId, sourceVnetConfig.resourceGroup)
   params: {
     sourceVnetName: sourceVnet.name
     sourceIsHub: sourceVnetConfig.isHub
@@ -34,7 +34,7 @@ module sourceToTarget 'individual_peering.bicep' = {
 // connect the target back to the source
 module targetToSource 'individual_peering.bicep' = {
   name: '${targetVnetName}-to-${sourceVnetName}'
-  scope: resourceGroup(targetVnetConfig.resourceGroup)
+  scope: resourceGroup(targetVnetConfig.subscriptionId, targetVnetConfig.resourceGroup)
   params: {
     sourceVnetName: targetVnet.name
     sourceIsHub: targetVnetConfig.isHub

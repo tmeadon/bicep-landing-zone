@@ -90,6 +90,7 @@ module vm 'vm.bicep' = if (resourceConfig.type == 'vm') {
     adminPassword: vmAdminPassword
     keyVaultName: refKvName
     keyVaultResourceGroup: keyVault != null ? keyVault.resourceGroup : ''
+    keyVaultSubscriptionId: keyVault != null ? keyVault.subscriptionId : ''
   }
 }
 

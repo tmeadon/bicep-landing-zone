@@ -11,7 +11,7 @@ var networkConfigsArray = items(networkConfigs)
 // deploy networks
 module networks 'modules/network.bicep' = [for networkConfig in networkConfigsArray: {
   name: 'networks-${networkConfig.key}'
-  scope: resourceGroup(networkConfig.value.resourceGroup)
+  scope: resourceGroup(networkConfig.value.subscriptionId, networkConfig.value.resourceGroup)
   params: {
     networkConfig: networkConfig.value
     environment: environments[networkConfig.value.environment]
@@ -21,7 +21,7 @@ module networks 'modules/network.bicep' = [for networkConfig in networkConfigsAr
 // deploy peerings for each network
 module peerings 'modules/vnet-peerings/all_vnet_peerings.bicep' = [for networkConfig in networkConfigsArray: {
   name: 'peerings-${networkConfig.key}'
-  scope: resourceGroup(networkConfig.value.resourceGroup)
+  scope: resourceGroup(networkConfig.value.subscriptionId, networkConfig.value.resourceGroup)
   params: {
     networkConfigKey: networkConfig.key
     allNetworkConfigs: networkConfigs

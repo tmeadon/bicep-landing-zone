@@ -23,11 +23,16 @@
           "tags": {
             "type": "object",
             "description": "Tags to apply to the resource group"
+          },
+          "subscriptionId": {
+            "type": "string",
+            "description": "The ID for the subscription to create the resource group in"
           }
         },
         "required": [
           "name",
-          "location"
+          "location",
+          "subscriptionId"
         ],
         "additionalProperties": false
       },
