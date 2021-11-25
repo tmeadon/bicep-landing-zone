@@ -2,8 +2,17 @@ name: Deploy Landing Zone
 on: [workflow_dispatch]
 
 permissions:
-  repository-projects: read
   id-token: write
+  actions: read
+  checks: read
+  contents: read
+  deployments: read
+  issues: read
+  packages: read
+  pull-requests: read
+  repository-projects: read
+  security-events: read
+  statuses: read
 
 jobs: 
   deploy:
@@ -43,6 +52,6 @@ jobs:
     
     - name: Create Networks
       run: az deployment sub create --location uksouth --template-file landing-zone\\networks.bicep
-      
+
     - name: Create Core Resources
       run: az deployment sub create --location uksouth --template-file landing-zone\\core.bicep -p vmAdminPassword=${{ secrets.AZURE_VM_CREDS }}
