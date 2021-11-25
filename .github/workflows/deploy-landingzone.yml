@@ -1,15 +1,14 @@
 name: Deploy Landing Zone
 on: [workflow_dispatch]
 
-# permissions:
-#       id-token: write
-
 jobs: 
   deploy:
     name: 'LZ Deployment'
     runs-on: ubuntu-latest
     environment: ingisub1
-   
+    permissions:
+          id-token: write
+
     steps:
     - uses: actions/checkout@v2
     - name: Use Nodejs 17
