@@ -1,4 +1,4 @@
-name: Bicep Landing Zone Deployment
+name: Deploy Landing Zone
 on: [workflow_dispatch]
 
 permissions:
