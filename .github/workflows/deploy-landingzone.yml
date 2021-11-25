@@ -1,7 +1,7 @@
 name: Deploy Landing Zone
 on: [workflow_dispatch]
 
-permissions: read-all|write-all
+permissions: write-all
 
 jobs: 
   deploy:
