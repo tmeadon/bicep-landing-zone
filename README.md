@@ -22,7 +22,9 @@ npm start
 
 # Deploy the Landing Zone:  
 npm run deploy
-```
+```  
+![console](.attachments/console.png)  
+
 
 ### For pipeline use  
 Clone the repo.
@@ -32,3 +34,9 @@ Use `.github/workflows/deploy-landingzone.yml` to deploy the Landing Zone packag
 
 In Azure Pipeline:  
 Use `.azure/pipelines.yml` to deploy the Landing Zone package.
+
+
+## Deployed Resources  
+See below resources deployed as base core deployment into two subscriptions (not limited to two).
+
+![resources](.attachments/resources.png)  
