@@ -7,7 +7,8 @@
     "update-naming": "node scripts/update-naming.js",
     "config-to-json": "node scripts/config-yaml-to-json.js",
     "start": "node scripts/build.js",
-    "deploy": "node scripts/deploy.mjs"
+    "deploy": "node scripts/deploy.mjs",
+    "cleanup": "node scripts/cleanup.js"
   },
   "author": "Ingi",
   "license": "ISC",
