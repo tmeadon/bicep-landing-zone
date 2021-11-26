@@ -10,22 +10,22 @@ let json = parseJson(fs.readFileSync(jsonFilePath));
 const rsgs = json.resourceGroups.reverse();
 
 async function rsgChk(rsg) {
-    const loading = ora({
-        text: 'Checking Resource Group...\n',
-        color: 'cyan',
-    });
-    loading.start();
+    // const loading = ora({
+    //     text: 'Checking Resource Group...\n',
+    //     color: 'cyan',
+    // });
+    // loading.start();
 
     const child = spawn('powershell', [`az group exists --name ${rsg.name} --subscription ${rsg.subscriptionId}`]);
     child.stdout.on('data', (data) => {
-        console.log(`Powershell Data:\n ${data}`);
+        //console.log(`Powershell Data:\n ${data}`);
     });
     child.stderr.on('data', (data) => {
-        loading.fail(`Powershell Error:\n ${data}`);
-        process.exit(1);
+        //loading.fail(`Powershell Error:\n ${data}`);
+        //process.exit(1);
     });
     child.on('close', async () => {
-        loading.succeed(`RSG Found`);
+        //loading.succeed(`RSG Found`);
         deleteRSG(rsg);
     });
 }
