@@ -9,7 +9,7 @@ const jsonFilePath = './landing-zone/config/resource-groups.json';
 let json = parseJson(fs.readFileSync(jsonFilePath));
 const rsgs = json.resourceGroups.reverse();
 
-function rsgChk(rsg) {
+async function rsgChk(rsg) {
     const loading = ora({
         text: 'Checking Resource Group...\n',
         color: 'cyan',
@@ -30,7 +30,7 @@ function rsgChk(rsg) {
     });
 }
 
-function deleteRSG(rsg) {
+async function deleteRSG(rsg) {
     const loading = ora({
         text: 'Deleting Resource Group..\n',
         color: 'yellow',
