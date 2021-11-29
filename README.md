@@ -39,15 +39,16 @@ npm run cleanup
 This will delete the Resource Groups used in the `./landing-zone/resource-groups.yaml` file.  
 
 ### For pipeline use  
-Clone the repo.
+Clone this repo.  
+Create new repo in GitHub or Azure DevOps.  
 
-In GitHub Actions:  
+If using GitHub Actions:  
 ![console](.attachments/actions.png)  
 Use `.github/workflows/deploy-landingzone.yml` to deploy the Landing Zone package.  
 
-In Azure Pipeline:  
+If using Azure Pipeline:  
 ![console](.attachments/pipeline.png)  
-Use `.azure/pipelines.yml` to deploy the Landing Zone package.
+Use `.azure/pipelines.yml` to deploy the Landing Zone package.  
 
 
 ## Deployed Resources  
