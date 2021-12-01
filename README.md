@@ -2,6 +2,8 @@
 
 ## Introduction
 Create Landing Zone script in Bicep
+:gl:
+⌛
 
 ## Usage
 The package can be used both localy or as part of pipeline.
@@ -12,7 +14,9 @@ Amend the config files with your own values.
 `./landing-zone/resource-groups.yaml` for the Resource Groups, location and subscription.  
 `./landing-zone/environments.yaml` to add your own environments.  
 `./landing-zone/networking.yaml` for your VNET needs.  
-`./landing-zone/core.yaml` to amend core resources.  Note that supported resources are limited to existing resources used in these files.  
+`./landing-zone/core.yaml` to amend core resources.  
+
+>Note that supported resources are limited to existing resources used in these files.  
 
 ### For local use
 Install NodeJS  
