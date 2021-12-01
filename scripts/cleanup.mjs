@@ -9,6 +9,11 @@ const jsonFilePath = './landing-zone/config/resource-groups.json';
 let json = parseJson(fs.readFileSync(jsonFilePath));
 const rsgs = json.resourceGroups.reverse();
 
+const loading = ora({
+    text: 'Deleting Resource Group..\n',
+    color: 'yellow',
+});
+
 async function rsgChk(rsg) {
     // const loading = ora({
     //     text: 'Checking Resource Group...\n',
@@ -18,24 +23,20 @@ async function rsgChk(rsg) {
 
     const child = spawn('powershell', [`az group exists --name ${rsg.name} --subscription ${rsg.subscriptionId}`]);
     child.stdout.on('data', (data) => {
-        //console.log(`Powershell Data:\n ${data}`);
+        console.log(`Powershell Data:\n ${data}`);
     });
     child.stderr.on('data', (data) => {
-        //loading.fail(`Powershell Error:\n ${data}`);
+        loading.fail(`Powershell Error:\n ${data}`);
         //process.exit(1);
     });
     child.on('close', async () => {
-        //loading.succeed(`RSG Found`);
+        loading.succeed(`RSG Found`);
         deleteRSG(rsg);
     });
 }
 
 async function deleteRSG(rsg) {
-    const loading = ora({
-        text: 'Deleting Resource Group..\n',
-        color: 'yellow',
-    });
-    loading.start();
+
 
     console.log(rsg.name + ` in Subscription `.yellow + rsg.subscriptionId);
     const child = spawn('powershell', [`az group delete --name ${rsg.name} --subscription ${rsg.subscriptionId} --yes`]);
@@ -50,14 +51,18 @@ async function deleteRSG(rsg) {
 
 
 async function cleanup() {
+
+    
+
     console.log('Listing Resource Groups used in the YAML configuration'.magenta);
     console.log('========================================================='.magenta);
     console.log(rsgs);
     console.log('========================================================='.magenta);
     console.log('Above Resource Groups will be deleted!'.red);
     const answers = await inquirer.askConfirm();
+    loading.start();
     if (answers.confirm) {
-        rsgs.forEach((rsg) => {
+        await rsgs.forEach((rsg) => {
             //console.log(`Resource Group `.green + rsg.name + ` SubscriptionId `.green + rsg.subscriptionId);
             rsgChk(rsg);
         });
