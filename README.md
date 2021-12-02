@@ -40,7 +40,10 @@ To clean up the resources used in the config, run the following in Terminal:
 ```bash
 npm run cleanup
 ```
-This will delete the Resource Groups used in the `./landing-zone/resource-groups.yaml` file.  
+This will delete the Resource Groups used in the `./landing-zone/resource-groups.yaml` and json file.  
+
+![cleanup](.attachments/cleanup.png)  
+
 
 ### For pipeline use  
 Clone this repo.  
