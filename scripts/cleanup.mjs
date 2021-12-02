@@ -8,11 +8,12 @@ const jsonFilePath = './landing-zone/config/resource-groups.json';
 
 let json = parseJson(fs.readFileSync(jsonFilePath));
 const rsgs = json.resourceGroups.reverse();
-let groupFound = true;
+let groupFound = false;
 
 async function rsgChk(rsg) {
     const child = spawn('powershell', [`az group exists --name ${rsg.name} --subscription ${rsg.subscriptionId}`]);
     child.stdout.on('data', (data) => {
+        groupFound = true;
         deleteRSG(rsg);
     });
 }
@@ -24,9 +25,9 @@ async function deleteRSG(rsg) {
     });
     loading.start();
     const child = spawn('powershell', [`az group delete --name ${rsg.name} --subscription ${rsg.subscriptionId} --yes`]);
-    child.stderr.on('data', (data) => {
-        groupFound = false;
-    });
+    // child.stderr.on('data', (data) => {
+        
+    // });
     child.on('close', () => {
         if (groupFound) {
             loading.succeed(`Resource Group ${rsg.name} Deleted`);
