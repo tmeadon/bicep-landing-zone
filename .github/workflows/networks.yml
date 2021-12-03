@@ -1,0 +1,64 @@
+name: deploy-networks
+
+on: 
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  hub:
+    uses: ./.github/workflows/deploy-network.yml@main
+    with:
+      environment: lz-oidc-demo-hub
+      paramFile: ./demo-param-files/net-hub.json
+      resourceGroupName: lz-oidc-demo-hub
+    secrets:
+      azureClientId: ${{ secrets.AZURE_CLIENT_ID }}
+      azureTenantId: ${{ secrets.AZURE_TENANT_ID }}
+      azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  core:
+    uses: ./.github/workflows/deploy-network.yml@main
+    with:
+      environment: lz-oidc-demo-core
+      paramFile: ./demo-param-files/net-core.json
+      resourceGroupName: lz-oidc-demo-core
+    secrets:
+      azureClientId: ${{ secrets.AZURE_CLIENT_ID }}
+      azureTenantId: ${{ secrets.AZURE_TENANT_ID }}
+      azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  spoke1-dev:
+    uses: ./.github/workflows/deploy-network.yml@main
+    with:
+      environment: lz-oidc-demo-spoke1-nonprod
+      paramFile: ./demo-param-files/net-spoke1-dev.json
+      resourceGroupName: lz-oidc-demo-spoke1-dev
+    secrets:
+      azureClientId: ${{ secrets.AZURE_CLIENT_ID }}
+      azureTenantId: ${{ secrets.AZURE_TENANT_ID }}
+      azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  spoke1-preprod:
+    uses: ./.github/workflows/deploy-network.yml@main
+    with:
+      environment: lz-oidc-demo-spoke1-nonprod
+      paramFile: ./demo-param-files/net-spoke1-preprod.json
+      resourceGroupName: lz-oidc-demo-spoke1-preprod
+    secrets:
+      azureClientId: ${{ secrets.AZURE_CLIENT_ID }}
+      azureTenantId: ${{ secrets.AZURE_TENANT_ID }}
+      azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+  spoke1-prod:
+    uses: ./.github/workflows/deploy-network.yml@main
+    with:
+      environment: lz-oidc-demo-spoke1-prod
+      paramFile: ./demo-param-files/net-spoke1-prod.json
+      resourceGroupName: lz-oidc-demo-spoke1-prod
+    secrets:
+      azureClientId: ${{ secrets.AZURE_CLIENT_ID }}
+      azureTenantId: ${{ secrets.AZURE_TENANT_ID }}
+      azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
