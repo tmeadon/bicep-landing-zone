@@ -33,7 +33,7 @@ jobs:
   spoke1-dev:
     uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
-      environment: lz-oidc-demo-spoke1-nonprod
+      environment: lz-oidc-demo-spoke-nonprod
       paramFile: ./demo-param-files/net-spoke1-dev.json
       resourceGroupName: lz-oidc-demo-spoke1-dev
     secrets:
@@ -44,7 +44,7 @@ jobs:
   spoke1-preprod:
     uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
-      environment: lz-oidc-demo-spoke1-nonprod
+      environment: lz-oidc-demo-spoke-nonprod
       paramFile: ./demo-param-files/net-spoke1-preprod.json
       resourceGroupName: lz-oidc-demo-spoke1-preprod
     secrets:
@@ -55,7 +55,7 @@ jobs:
   spoke1-prod:
     uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
-      environment: lz-oidc-demo-spoke1-prod
+      environment: lz-oidc-demo-spoke-prod
       paramFile: ./demo-param-files/net-spoke1-prod.json
       resourceGroupName: lz-oidc-demo-spoke1-prod
     secrets:
