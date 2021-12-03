@@ -20,7 +20,7 @@ jobs:
       azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   core:
-    uses: ./.github/workflows/deploy-network.yml@main
+    uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
       environment: lz-oidc-demo-core
       paramFile: ./demo-param-files/net-core.json
@@ -31,7 +31,7 @@ jobs:
       azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   spoke1-dev:
-    uses: ./.github/workflows/deploy-network.yml@main
+    uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
       environment: lz-oidc-demo-spoke1-nonprod
       paramFile: ./demo-param-files/net-spoke1-dev.json
@@ -42,7 +42,7 @@ jobs:
       azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   spoke1-preprod:
-    uses: ./.github/workflows/deploy-network.yml@main
+    uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
       environment: lz-oidc-demo-spoke1-nonprod
       paramFile: ./demo-param-files/net-spoke1-preprod.json
@@ -53,7 +53,7 @@ jobs:
       azureSubscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
   spoke1-prod:
-    uses: ./.github/workflows/deploy-network.yml@main
+    uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
       environment: lz-oidc-demo-spoke1-prod
       paramFile: ./demo-param-files/net-spoke1-prod.json
