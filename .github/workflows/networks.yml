@@ -1,4 +1,4 @@
-name: deploy-networks
+name: Deploy Networking
 
 on: 
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   hub:
-    uses: ./.github/workflows/deploy-network.yml@main
+    uses: Cognizant-Microsoft-Business-Group/uk-bicep-landingzone/.github/workflows/deploy-network.yml@main
     with:
       environment: lz-oidc-demo-hub
       paramFile: ./demo-param-files/net-hub.json
