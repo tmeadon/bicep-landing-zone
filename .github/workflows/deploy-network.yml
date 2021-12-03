@@ -1,0 +1,41 @@
+name: deploy-network
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      paramFile:
+        type: string
+        required: true
+      resourceGroupName: 
+        type: string
+        required: true
+    secrets:
+      azureClientId:
+        required: true
+      azureTenantId:
+        required: true
+      azureSubscriptionId:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy network ${{ inputs.paramFile }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.azureClientId }}
+          tenant-id: ${{ secrets.azureTenantId }}
+          subscription-id: ${{ secrets.azureSubscriptionId }}
+
+      - name: Deploy bicep
+        run: |
+          az group create --name ${{ inputs.resourceGroupName }} --location uksouth
+          az deployment group create -g ${{ inputs.resourceGroupName }} -f ./landing-zone/modules/vnet.bicep -p ${{ inputs.paramFile }}          

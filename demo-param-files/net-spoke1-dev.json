@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "value": "vnet-dev-uks-spoke1"
+    },
+    "vnetConfig": {
+      "value": {
+        "location": "uksouth",
+        "addressPrefixes": [
+          "10.4.0.0/16"
+        ],
+        "subnets": [
+          {
+            "name": "aks",
+            "addressPrefix": "10.4.0.0/24"
+          },
+          {
+            "name": "vms",
+            "addressPrefix": "10.4.1.0/24"
+          }
+        ]
+      }
+    }
+  }
+}
